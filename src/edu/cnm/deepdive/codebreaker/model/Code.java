@@ -9,10 +9,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * Generates the secret code for the
+ */
 public class Code {
 
   private final char[] secret;
 
+  /**
+   * @param pool   Pool of characters for guess.
+   * @param length Length of pool characters in guess.
+   * @param rng    Random pool of characters for guess.
+   */
   public Code(String pool, int length, Random rng) {
     secret = new char[length];
     for (int i = 0; i < secret.length; i++) {
@@ -25,6 +33,10 @@ public class Code {
     return new String(secret);
   }
 
+  /**
+   * Implements useful hints to that helps the users after they have input a guess. Showing their
+   * input and whether their guess was close or correct.
+   */
   public class Guess {
 
     private static final String STRING_FORMAT = "{text: \"%s\". correct: %d, close: %d}";
@@ -33,6 +45,13 @@ public class Code {
     private final int correct;
     private final int close;
 
+    /**
+     * Implements the guess string of the user to check if they were correct or close on their
+     * guess. Will return 2 phrases in if guess is close, characters in the code but not in the same
+     * position or correct, characters in the same position.
+     *
+     * @param text Users input of text for Guess
+     */
     public Guess(String text) {
       this.text = text;
       int correct = 0;
@@ -64,7 +83,6 @@ public class Code {
 
       }
 
-
       this.correct = correct;
       this.close = close;
     }
@@ -73,10 +91,10 @@ public class Code {
       Map<Character, Set<Integer>> letterMap = new HashMap<>();
       char[] letters = text.toCharArray();
       for (int i = 0; i < letters.length; i++) {
-          char letter = letters[i];
-          Set<Integer> positions = letterMap.getOrDefault(letter, new HashSet<>());
-          positions.add(i);
-          letterMap.putIfAbsent(letter, positions);
+        char letter = letters[i];
+        Set<Integer> positions = letterMap.getOrDefault(letter, new HashSet<>());
+        positions.add(i);
+        letterMap.putIfAbsent(letter, positions);
 
       }
       return letterMap;
@@ -87,14 +105,23 @@ public class Code {
       return String.format(STRING_FORMAT, text, correct, close);
     }
 
+    /**
+     * Returns the text of this instance.
+     */
     public String getText() {
       return text;
     }
 
+    /**
+     * Returns the correct if guess was correct.
+     */
     public int getCorrect() {
       return correct;
     }
 
+    /**
+     * Returns close if guess is near correct.
+     */
     public int getClose() {
       return close;
     }
