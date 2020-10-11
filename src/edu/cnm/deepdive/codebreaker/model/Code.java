@@ -10,7 +10,9 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * Generates the secret code for the
+ * Generates the secret code for the new game which lets users play a game. Will let users know if
+ * their guess is close or correct. If they dont get either of those than the guess is not correct
+ * and does not consist of that character. Helps users in solving the code.
  */
 public class Code {
 
@@ -113,14 +115,14 @@ public class Code {
     }
 
     /**
-     * Returns the correct if guess was correct.
+     * Returns correct if guess was the correct character in the correct position.
      */
     public int getCorrect() {
       return correct;
     }
 
     /**
-     * Returns close if guess is near correct.
+     * Returns close if guess has a correct character but in the wrong position.
      */
     public int getClose() {
       return close;
